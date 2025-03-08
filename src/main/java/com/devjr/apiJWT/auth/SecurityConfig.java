@@ -29,11 +29,11 @@ public class SecurityConfig {
         return httpSecurity
                 .csrf(csrf->csrf.disable())
                 .authorizeHttpRequests(http ->{
-                    http.requestMatchers("/api/auth/free").permitAll();
+                    http.requestMatchers("/img/**").permitAll();
                     http.requestMatchers("/api/auth/login").permitAll();
                     http.requestMatchers("/api/v1/categories/**").permitAll();
                     http.requestMatchers("/api/v1/products/**").permitAll();
-                    http.requestMatchers("/img/**").permitAll();
+
                     http.anyRequest().authenticated();
 
                 })

@@ -14,7 +14,7 @@ public interface IProductService {
 
     Product findById(Long id);
 
-    Product updateProduct(Long id, Product product, MultipartFile file);
+    Product updateProduct(Long id, Product product, MultipartFile file) throws IOException;
 
     void deleteById(Long id);
 

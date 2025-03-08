@@ -49,16 +49,39 @@ public class ProductServiceImpl implements IProductService{
 
     @Override
     public Product findById(Long id) {
-        return null;
+
+         return  productRepository.findById(id)
+                .orElseThrow(()->new RuntimeException("Product not found"));
+
     }
 
     @Override
-    public Product updateProduct(Long id, Product product, MultipartFile file) {
-        return null;
+    public Product updateProduct(Long id, Product product, MultipartFile file) throws IOException {
+
+        Product productExisting = productRepository.findById(id)
+                .orElseThrow(()->new RuntimeException("product not found"));
+
+        if(file!=null){
+            String fileImage = utileria.saveImage(file);
+            product.setImage(fileImage);
+
+        }
+        productExisting.setName(product.getName());
+        productExisting.setDescription(product.getDescription());
+        productExisting.setPrice(product.getPrice());
+        productExisting.setQuantity(product.getQuantity());
+        product.setDate(productExisting.getDate());
+        product.setCategory(productExisting.getCategory());
+
+        productRepository.save(product);
+
+        return product;
     }
 
     @Override
     public void deleteById(Long id) {
+
+        productRepository.deleteById(id);
 
     }
 }
