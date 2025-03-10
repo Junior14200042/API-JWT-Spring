@@ -61,21 +61,20 @@ public class ProductServiceImpl implements IProductService{
         Product productExisting = productRepository.findById(id)
                 .orElseThrow(()->new RuntimeException("product not found"));
 
-        if(file!=null){
+        if (file != null) {
             String fileImage = utileria.saveImage(file);
-            product.setImage(fileImage);
-
+            productExisting.setImage(fileImage);
+        } else {
+            productExisting.setImage(productExisting.getImage());
         }
         productExisting.setName(product.getName());
         productExisting.setDescription(product.getDescription());
         productExisting.setPrice(product.getPrice());
         productExisting.setQuantity(product.getQuantity());
-        product.setDate(productExisting.getDate());
-        product.setCategory(productExisting.getCategory());
+        productExisting.setDate(productExisting.getDate());  
+        productExisting.setCategory(productExisting.getCategory());
 
-        productRepository.save(product);
-
-        return product;
+        return productRepository.save(productExisting);
     }
 
     @Override

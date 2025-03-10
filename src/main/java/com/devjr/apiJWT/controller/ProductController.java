@@ -52,7 +52,7 @@ public class ProductController {
     @GetMapping("/{id}")
     public ResponseEntity<Product> getById(@PathVariable Long id){
 
-        return new ResponseEntity<>(productService.findById(id),HttpStatus.FOUND);
+        return new ResponseEntity<>(productService.findById(id),HttpStatus.OK);
 
     }
 
@@ -72,10 +72,7 @@ public class ProductController {
         product.setQuantity(Integer.parseInt(quantity));
 
 
-
-        Product newProduct = productService.updateProduct(id,product,image);
-
-        return new ResponseEntity<>(newProduct,HttpStatus.OK);
+        return new ResponseEntity<>(productService.updateProduct(id,product,image),HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
