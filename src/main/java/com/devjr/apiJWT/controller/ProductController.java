@@ -7,6 +7,7 @@ import com.devjr.apiJWT.services.ProductServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -15,7 +16,7 @@ import java.util.List;
 
 @CrossOrigin(value = "http://localhost:4200")
 @RestController
-@RequestMapping("api/v1/products")
+@RequestMapping()
 public class ProductController {
 
     @Autowired
@@ -27,6 +28,7 @@ public class ProductController {
     }
 
     @PostMapping
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<Void> saveProduct(@RequestParam String name,
                                             @RequestParam String description,
                                             @RequestParam MultipartFile image,
@@ -57,6 +59,7 @@ public class ProductController {
     }
 
     @PutMapping("/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<Product> updateProduct(@PathVariable Long id,@RequestParam String name,
                                             @RequestParam String description,
                                             @RequestParam MultipartFile image,
@@ -76,6 +79,7 @@ public class ProductController {
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<Void> deleteProductById(@PathVariable Long id){
 
         productService.deleteById(id);
