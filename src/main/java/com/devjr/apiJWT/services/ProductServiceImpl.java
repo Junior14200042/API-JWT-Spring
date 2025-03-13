@@ -83,4 +83,9 @@ public class ProductServiceImpl implements IProductService{
         productRepository.deleteById(id);
 
     }
+
+    @Override
+    public List<Object[]> getPriceAndQuantityTotal(Long categoryId) {
+        return productRepository.getPriceAndQuantityTotal(categoryId);
+    }
 }

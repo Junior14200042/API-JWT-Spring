@@ -18,4 +18,7 @@ public interface IProductService {
 
     void deleteById(Long id);
 
+
+    List<Object[]> getPriceAndQuantityTotal(Long id_category);
+
 }

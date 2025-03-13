@@ -12,11 +12,12 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.Collections;
 import java.util.List;
 
 @CrossOrigin(value = "http://localhost:4200")
 @RestController
-@RequestMapping()
+@RequestMapping("api/v1/products")
 public class ProductController {
 
     @Autowired
@@ -86,5 +87,12 @@ public class ProductController {
         return ResponseEntity.ok().build();
     }
 
+    @GetMapping("/total/{id}")
+    public ResponseEntity<List<Object[]>> getTotal(@PathVariable Long id) {
+        List<Object[]> result = productService.getPriceAndQuantityTotal(id);
+
+
+        return new ResponseEntity<List<Object[]>>(result,HttpStatus.OK);
+    }
 
 }
